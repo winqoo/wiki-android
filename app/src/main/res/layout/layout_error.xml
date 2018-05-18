@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/colorPrimary"
+  android:clickable="true"
+  android:gravity="center"
+  android:orientation="vertical"
+  android:padding="16dp">
+
+  <TextView
+    android:id="@+id/tvErrorHeader"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:gravity="center_horizontal"
+    tools:text="@string/global_whoops"
+    android:textColor="@color/colorWhite"
+    android:textSize="34sp"/>
+
+  <TextView
+    android:id="@+id/tvErrorTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:text="@string/global_connection_error"
+    android:textColor="@color/colorWhite"
+    android:textSize="14sp"/>
+
+  <ImageView
+    android:id="@+id/ivLogo"
+    android:layout_width="128dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="32dp"
+    android:adjustViewBounds="true"
+    android:visibility="visible"
+    tools:srcCompat="@drawable/ic_no_connection"/>
+
+  <TextView
+    android:id="@+id/tvErrorSubmessage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:text="@string/global_connection_error_check"
+    android:textColor="@color/colorWhite"
+    android:textSize="12sp"/>
+
+  <android.support.v7.widget.AppCompatButton
+    android:id="@+id/btnErrorRefresh"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    android:background="@drawable/selector_btn_accent_bg"
+    android:minWidth="160dp"
+    android:text="@string/global_refresh"/>
+
+
+</LinearLayout>

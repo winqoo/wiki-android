@@ -1,0 +1,25 @@
+<resources>
+  <string name="app_name">Fandom Wikis</string>
+  <string name="onboarding_skip">skip</string>
+  <string name="wikis_header">Top Wikis</string>
+  <string name="wikis_titles">Titles</string>
+  <string name="wikis_images">Images</string>
+
+  <string name="global_whoops">Whooops!</string>
+  <string name="global_connection_error">Your internet connection caught\na shortness of breath</string>
+  <string name="global_server_error">Server connection is broken! \nDon’t worry, It will be fine</string>
+  <string name="global_connection_error_check">Please check your\nnetwork connection</string>
+  <string name="global_refresh">Refresh</string>
+  <string name="global_whatchout">Watch out!</string>
+  <string name="global_server_error_check">Please, forgive us, \nWe are trying to fix it!</string>
+  <string name="empty_wikis_header">No wikis</string>
+  <string name="global_error_occured">An error occurred</string>
+  <string name="wiki_section_articles_no">No articles</string>
+
+
+  <string-array name="main_steps_text">
+    <item>Check the most recent news about\n your favorite pop culture heroes</item>
+    <item>Top quality content</item>
+    <item>Great images and videos</item>
+  </string-array>
+</resources>
