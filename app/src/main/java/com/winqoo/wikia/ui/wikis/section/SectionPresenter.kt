@@ -44,7 +44,7 @@ constructor(private val wikiaRepository: WikiaRepositoryInterface) : BasePresent
 
                                 it.items.let{
                                     if(it!!.isNotEmpty()){
-                                        view?.addWikis(it.toList() ?: ArrayList())
+                                        view?.addWikis(it.toList())
                                         view?.setPaginationEnd(!hasNextPage)
                                         view?.setPaginationLoading(false)
                                         view?.showContent()

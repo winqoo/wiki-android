@@ -2,8 +2,8 @@ package com.winqoo.wikia
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.SharedPreferences
 import android.support.multidex.MultiDex
-import com.pixplicity.easyprefs.library.Prefs
 import com.winqoo.wikia.di.components.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
@@ -14,14 +14,11 @@ import dagger.android.support.DaggerApplication
  */
 class App : DaggerApplication() {
 
+
     override fun onCreate() {
         super.onCreate()
-        Prefs.Builder()
-                .setContext(this)
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(packageName)
-                .setUseDefaultSharedPreference(true)
-                .build()
+        prefs = applicationContext.getSharedPreferences(packageName, ContextWrapper.MODE_PRIVATE)
+
     }
 
     override fun attachBaseContext(base: Context) {
@@ -35,6 +32,8 @@ class App : DaggerApplication() {
         operator fun get(context: Context): App {
             return context.applicationContext as App
         }
+
+        lateinit var prefs: SharedPreferences
     }
 
 }
