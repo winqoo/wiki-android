@@ -52,6 +52,11 @@ dependencies {
     implementation "com.hannesdorfmann:adapterdelegates3:$adapter_delegate_version"
 
     /*
+     * Mockito for kotlin
+     */
+    implementation "com.nhaarman:mockito-kotlin-kt1.1:$mockito_kotlin_version"
+
+    /*
     * Dagger dependencies
     */
     kapt "com.google.dagger:dagger-compiler:$dagger_version"

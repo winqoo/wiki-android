@@ -7,7 +7,7 @@ import com.winqoo.wikia.di.qualifier.NoInterceptor
 import com.winqoo.wikia.service.api.WikiaApi
 import com.winqoo.wikia.service.common.NetworkConnectionInterceptor
 import com.winqoo.wikia.service.repository.WikiaRepository
-import com.winqoo.wikia.service.repository.WikiaRepositoryInterface
+import com.winqoo.wikia.service.repository.WikiaRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -92,14 +92,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideWikiaRepository(wikiaApi: WikiaApi): WikiaRepository {
-        return WikiaRepository(wikiaApi)
-    }
-
-    @Singleton
-    @Provides
-    fun provideWikiaRepositoryInterface(wikiaApi: WikiaApi): WikiaRepositoryInterface {
-        return WikiaRepository(wikiaApi)
+    fun provideWikiaRepository(retrofit : Retrofit): WikiaRepository {
+        return WikiaRepositoryImpl(retrofit.create<WikiaApi>(WikiaApi::class.java))
     }
 
 }

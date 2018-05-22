@@ -2,21 +2,12 @@ package com.winqoo.wikia.service.repository
 
 import com.winqoo.wikia.data.models.ExpandedWikiaListResponse
 import com.winqoo.wikia.data.models.UnexpandedWikiaListResponse
-import com.winqoo.wikia.service.api.WikiaApi
 import io.reactivex.Single
 
-/**
- * Created by Michał Winkler
- * winklermichu@gmail.com
- */
-class WikiaRepository(private val wikiaApi: WikiaApi) : WikiaRepositoryInterface {
+interface WikiaRepository {
 
-    override fun getListOfUnexpandedWikis(map: Map<String, String>): Single<UnexpandedWikiaListResponse> {
-        return wikiaApi.getUnexpandedWikis(map)
-    }
+    fun getListOfUnexpandedWikis(map: Map<String, String>): Single<UnexpandedWikiaListResponse>
 
-    override fun getListOfExpandedWikis(map: Map<String, String>): Single<ExpandedWikiaListResponse> {
-        return wikiaApi.getExpandedWikis(map)
-    }
+    fun getListOfExpandedWikis(map: Map<String, String>): Single<ExpandedWikiaListResponse>
 
 }

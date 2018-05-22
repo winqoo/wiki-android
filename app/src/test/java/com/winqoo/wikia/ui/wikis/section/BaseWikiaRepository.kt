@@ -3,10 +3,10 @@ package com.winqoo.wikia.ui.wikis.section
 import com.winqoo.wikia.data.models.ExpandedWikiaItem
 import com.winqoo.wikia.data.models.ExpandedWikiaListResponse
 import com.winqoo.wikia.data.models.UnexpandedWikiaListResponse
-import com.winqoo.wikia.service.repository.WikiaRepositoryInterface
+import com.winqoo.wikia.service.repository.WikiaRepository
 import io.reactivex.Single
 
-class BaseWikiaRepository : WikiaRepositoryInterface{
+class BaseWikiaRepository : WikiaRepository{
     val items =   arrayOf(ExpandedWikiaItem())
      fun bindResponse() : ExpandedWikiaListResponse {
         val response = ExpandedWikiaListResponse()

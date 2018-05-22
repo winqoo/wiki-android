@@ -2,7 +2,7 @@ package com.winqoo.wikia.ui.wikis.section
 
 import com.winqoo.wikia.extension.applySchedulers
 import com.winqoo.wikia.service.api.QueryParams
-import com.winqoo.wikia.service.repository.WikiaRepositoryInterface
+import com.winqoo.wikia.service.repository.WikiaRepository
 import com.winqoo.wikia.ui.common.base.BasePresenter
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
  * winklermichu@gmail.com
  */
 class SectionPresenter @Inject
-constructor(private val wikiaRepository: WikiaRepositoryInterface) : BasePresenter<SectionView>() {
+constructor(private val wikiaRepository: WikiaRepository) : BasePresenter<SectionView>() {
 
     private val pageSize = 10
     private var currentPage = 1
@@ -23,8 +23,10 @@ constructor(private val wikiaRepository: WikiaRepositoryInterface) : BasePresent
         if (!hasNextPage) {
             return
         }
+
         params.addQueryParam(QueryParams.WIKIS_LIMIT, pageSize.toString())
         params.addQueryParam(QueryParams.WIKIS_BATCH, currentPage.toString())
+
         compositeDisposable.add(wikiaRepository.getListOfExpandedWikis(params.queryMap)
                 .applySchedulers()
                 .doOnSubscribe({

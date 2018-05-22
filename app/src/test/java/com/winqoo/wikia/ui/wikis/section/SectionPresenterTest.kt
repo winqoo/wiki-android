@@ -1,35 +1,38 @@
 package com.winqoo.wikia.ui.wikis.section
 
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import com.winqoo.wikia.data.models.ExpandedWikiaItem
-import com.winqoo.wikia.service.api.QueryParams
+import com.winqoo.wikia.data.models.ExpandedWikiaListResponse
+import com.winqoo.wikia.service.repository.WikiaRepository
+import io.reactivex.Single
+import io.reactivex.android.plugins.RxAndroidPlugins
+import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
-import org.junit.ClassRule
 import org.junit.Test
-import org.mockito.InOrder
-import org.mockito.Mock
+import org.junit.runner.RunWith
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.verify
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class SectionPresenterTest {
 
-    companion object {
-        @ClassRule
-        @JvmField
-        val schedulers = RxImmediateSchedulerRule()
-    }
+    private val view: SectionView = mock()
 
-    @Mock
-    private lateinit var view: SectionView
+    private val testScheduler = TestScheduler()
 
-    private var wikiaRepository =  Mockito.spy(BaseWikiaRepository())
+    private var wikiaRepository: WikiaRepository = mock()
 
     private lateinit var presenter: SectionPresenter
 
-    var params = QueryParams()
-
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        RxJavaPlugins.setIoSchedulerHandler({ _ -> testScheduler })
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { _ -> Schedulers.trampoline() }
 
         presenter = SectionPresenter(wikiaRepository)
         presenter.attachView(view)
@@ -38,17 +41,31 @@ class SectionPresenterTest {
     @Test
     fun fetchWikis_Success() {
 
+        val reponse = ExpandedWikiaListResponse()
+        reponse.batches = 1
+        reponse.currentBatch = 1
+        reponse.total = 10
+        reponse.currentBatch = 1
+        reponse.items = arrayOf(ExpandedWikiaItem(), ExpandedWikiaItem())
+
+        val single: Single<ExpandedWikiaListResponse> = Single.create { emitter ->
+            emitter.onSuccess(reponse)
+        }
+
+        whenever(wikiaRepository.getListOfExpandedWikis(any())).thenReturn(single)
+
         presenter.fetchWikis()
 
-        val inOrder: InOrder = Mockito.inOrder(view)
+        testScheduler.triggerActions()
 
-        inOrder.verify(view, Mockito.times(1)).hideError()
-        inOrder.verify(view, Mockito.times(1)).hideEmptyContent()
-        inOrder.verify(view, Mockito.times(1)).hideContent()
-        inOrder.verify(view, Mockito.times(1)).showProgress()
-        inOrder.verify(view, Mockito.times(1)).addWikis(wikiaRepository.items?.toList()
-                ?: ArrayList<ExpandedWikiaItem>())
-        inOrder.verify(view, Mockito.times(1)).showContent()
+        verify(view, Mockito.times(1)).hideError()
+        verify(view, Mockito.times(1)).hideEmptyContent()
+        verify(view, Mockito.times(1)).hideContent()
+        verify(view, Mockito.times(1)).showProgress()
+        verify(view).addWikis(reponse.items?.toList()
+                ?: ArrayList() )
+        verify(view).showContent()
+        verify(view).hideProgress()
 
     }
 
